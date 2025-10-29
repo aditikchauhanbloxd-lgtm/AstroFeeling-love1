@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AstroFeeling • Love & Life Reading</title>
+    <style>
+      :root {
+        --bg1: #100021;
+        --bg2: #1b003a;
+        --muted: #cfc7e6;
+        --accent: #ff8fc1;
+        --card-bg: rgba(255, 255, 255, 0.03);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        background: radial-gradient(
+            800px 500px at 10% 10%,
+            rgba(255, 180, 210, 0.03),
+            transparent
+          ),
+          linear-gradient(180deg, var(--bg1), var(--bg2));
+        color: #f5eef8;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial;
+        display: flex;
+        justify-content: center;
+        padding: 28px;
+        overflow-y: auto;
+      }
+      .container {
+        width: 100%;
+        max-width: 980px;
+      }
+      .card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.015),
+          rgba(255, 255, 255, 0.007)
+        );
+        border-radius: 18px;
+        padding: 28px;
+        display: grid;
+        gap: 20px;
+        grid-template-columns: 1fr 340px;
+        box-shadow: 0 18px 60px rgba(3, 6, 20, 0.6);
+      }
+      header {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+      }
+      .logo {
+        width: 72px;
+        height: 72px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        color: #2b0033;
+        background: linear-gradient(135deg, #ffd6e8, #ff8fc1);
+        font-size: 26px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 20px;
+      }
+      .lead {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .main {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding: 12px;
+      }
+      .top-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .time {
+        font-weight: 700;
+      }
+      .tz {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .feeling {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        padding: 14px;
+        border-radius: 12px;
+        background: var(--card-bg);
+      }
+      .emoji {
+        font-size: 48px;
+        display: inline-block;
+        animation: float 3s ease-in-out infinite;
+      }
+      .meta .title {
+        font-weight: 800;
+      }
+      .meta .sub {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .grid-mini {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .card-mini {
+        background: rgba(255, 255, 255, 0.02);
+        padding: 12px;
+        border-radius: 12px;
+      }
+      .card-mini h3 {
+        margin: 0;
+        font-size: 13px;
+      }
+      .card-mini p {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .thoughts {
+        padding: 14px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .future {
+        padding: 14px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.01);
+      }
+      .loveCard {
+        margin-top: 6px;
+        padding: 16px;
+        border-radius: 14px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 140, 180, 0.06),
+          rgba(255, 140, 180, 0.02)
+        );
+        position: relative;
+        overflow: hidden;
+      }
+      .loveGlow {
+        position: absolute;
+        inset: -30% -10%;
+        pointer-events: none;
+        background: radial-gradient(
+            circle at 30% 20%,
+            rgba(255, 184, 220, 0.1),
+            transparent 10%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(255, 120, 170, 0.06),
+            transparent 12%
+          );
+        transform: rotate(6deg);
+      }
+      .loveTitle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .loveTitle h3 {
+        margin: 0;
+      }
+      .loveLine {
+        color: var(--muted);
+        margin: 10px 0;
+        font-size: 14px;
+      }
+      .loveMeta {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .pill {
+        background: rgba(255, 255, 255, 0.04);
+        padding: 8px 10px;
+        border-radius: 999px;
+        font-size: 13px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .loveHeart {
+        position: absolute;
+        right: 18px;
+        top: 8px;
+        font-size: 34px;
+        opacity: 0.12;
+        transform: rotate(-10deg);
+        animation: heartbeat 3s ease-in-out infinite;
+        filter: drop-shadow(0 6px 12px rgba(255, 120, 170, 0.12));
+      }
+      aside {
+        padding: 18px;
+        border-radius: 12px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          rgba(255, 255, 255, 0)
+        );
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      label {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      input,
+      select,
+      button {
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        background: transparent;
+        color: inherit;
+      }
+      .controls {
+        display: flex;
+        gap: 10px;
+      }
+      .btn {
+        cursor: pointer;
+      }
+      footer {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 12px;
+        text-align: center;
+      }
+      @media (max-width: 900px) {
+        .card {
+          grid-template-columns: 1fr;
+        }
+        .loveHeart {
+          display: none;
+        }
+      }
+      @media (max-width: 500px) {
+        .logo {
+          width: 64px;
+          height: 64px;
+          font-size: 22px;
+        }
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+      }
+      @keyframes heartbeat {
+        0%,
+        100% {
+          transform: scale(1) rotate(-10deg);
+          opacity: 0.12;
+        }
+        45% {
+          transform: scale(1.12) rotate(-6deg);
+          opacity: 0.22;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="main">
+          <header>
+            <div class="logo">AF</div>
+            <div>
+              <h1>AstroFeeling — Mood, Future & Love</h1>
+              <div class="lead">
+                Auto-updates every minute • Love readings synchronized
+              </div>
+            </div>
+          </header>
+
+          <div class="top-row">
+            <div>
+              <div class="time" id="time">--:--</div>
+              <div class="tz" id="tz">local time</div>
+            </div>
+            <div id="signDisplay" style="color: var(--muted)">Zodiac: —</div>
+          </div>
+
+          <div class="feeling" aria-live="polite">
+            <div class="emoji" id="feelingEmoji">✨</div>
+            <div class="meta">
+              <div class="title" id="feelingTitle">Your current vibe</div>
+              <div class="sub" id="feelingSubtitle">
+                How the day is coloring your mood
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-mini" id="forecastGrid">
+            <div class="card-mini">
+              <h3>Now</h3>
+              <p id="moodNowText">—</p>
+            </div>
+            <div class="card-mini">
+              <h3>Today</h3>
+              <p id="moodTodayText">—</p>
+            </div>
+            <div class="card-mini">
+              <h3>Advice</h3>
+              <p id="moodAdviceText">—</p>
+            </div>
+          </div>
+
+          <div class="thoughts">
+            <h3 style="margin: 0">Likely thoughts / mental focus</h3>
+            <ul
+              id="thoughtTopicsList"
+              style="margin: 8px 0 0 18px; color: var(--muted)"
+            ></ul>
+          </div>
+
+          <div class="future">
+            <h3 style="margin: 0">Today's forecast</h3>
+            <p id="todayForecast" style="color: var(--muted)">—</p>
+            <hr style="opacity: 0.04; margin: 12px 0" />
+            <h3 style="margin: 0">Life glimpse</h3>
+            <p id="lifeGlimpse" style="color: var(--muted)">—</p>
+          </div>
+
+          <div class="loveCard" aria-live="polite" id="loveCard">
+            <div class="loveGlow" aria-hidden="true"></div>
+            <div class="loveHeart">💕</div>
+            <div class="loveTitle">
+              <h3>💖 Love & Marriage Glimpse</h3>
+            </div>
+            <div class="loveLine" id="loveMainLine">—</div>
+            <div class="loveMeta" id="loveMeta"></div>
+          </div>
+
+          <footer>
+            AstroFeeling is for entertainment and self-reflection — not
+            professional advice.
+          </footer>
+        </div>
+
+        <aside>
+          <div>
+            <label for="birth"
+              >Your Birthdate (DOB) — required for love reading</label
+            >
+            <input id="birth" type="date" />
+          </div>
+          <div>
+            <label for="name">Your Name</label>
+            <input id="name" type="text" placeholder="e.g. Aditi" />
+          </div>
+          <div>
+            <label for="partnerName">Someone you love / interest</label>
+            <input id="partnerName" type="text" placeholder="e.g. Bhor" />
+          </div>
+          <div class="controls">
+            <button id="readBtn" class="btn">Generate reading</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <script>
+      // RNG helper
+      function mulberry32(a) {
+        return function () {
+          a |= 0;
+          a = (a + 0x6d2b79f5) | 0;
+          var t = Math.imul(a ^ (a >>> 15), 1 | a);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      function pick(rng, arr) {
+        return arr[Math.floor(rng() * arr.length)];
+      }
+      function zodiacFromDate(d) {
+        const signs = [
+          { name: "Capricorn", start: "12-22", end: "01-19" },
+          { name: "Aquarius", start: "01-20", end: "02-18" },
+          { name: "Pisces", start: "02-19", end: "03-20" },
+          { name: "Aries", start: "03-21", end: "04-19" },
+          { name: "Taurus", start: "04-20", end: "05-20" },
+          { name: "Gemini", start: "05-21", end: "06-20" },
+          { name: "Cancer", start: "06-21", end: "07-22" },
+          { name: "Leo", start: "07-23", end: "08-22" },
+          { name: "Virgo", start: "08-23", end: "09-22" },
+          { name: "Libra", start: "09-23", end: "10-22" },
+          { name: "Scorpio", start: "10-23", end: "11-21" },
+          { name: "Sagittarius", start: "11-22", end: "12-21" },
+        ];
+        const mm = String(d.getMonth() + 1).padStart(2, "0");
+        const dd = String(d.getDate()).padStart(2, "0");
+        const cur = Number(mm) * 100 + Number(dd);
+        for (const z of signs) {
+          const [sM, sD] = z.start.split("-").map(Number);
+          const [eM, eD] = z.end.split("-").map(Number);
+          const start = sM * 100 + sD;
+          const end = eM * 100 + eD;
+          if (start <= end) {
+            if (cur >= start && cur <= end) return z.name;
+          } else {
+            if (cur >= start || cur <= end) return z.name;
+          }
+        }
+        return null;
+      }
+
+      // Love reading helpers
+      function formatMonthRangeFromOffset(offsetMonths) {
+        const now = new Date();
+        const target = new Date(
+          now.getFullYear(),
+          now.getMonth() + offsetMonths,
+          1
+        );
+        const month = target.getMonth();
+        const year = target.getFullYear();
+        let part;
+        if (month <= 3) part = "early";
+        else if (month <= 7) part = "mid";
+        else part = "late";
+        return { part, year, monthIndex: month };
+      }
+      function describeDuration(rng) {
+        return pick(rng, [
+          "Lifelong",
+          "A few years",
+          "A meaningful chapter",
+          "Cyclic/recurring soul ties",
+        ]);
+      }
+      function describeConnectionType(rng) {
+        return pick(rng, [
+          "Soulmate",
+          "Twin-flame",
+          "Fated love",
+          "Deep karmic bond",
+          "Comforting partnership",
+        ]);
+      }
+      function describeMutualFeelings(rng, met) {
+        if (met) {
+          return pick(rng, [
+            { text: "Yes, strongly likes you", emoji: "💖" },
+            { text: "Maybe / slowly falling", emoji: "🌸" },
+            { text: "Curious, noticing you", emoji: "💌" },
+          ]);
+        } else {
+          return {
+            text: "Your connection is unfolding naturally ✨",
+            emoji: "💌",
+          };
+        }
+      }
+
+      function generateLoveReading(birthIso, name, partnerName) {
+        let seed = 0;
+        const hasPartnerName = partnerName && partnerName.trim().length > 0;
+
+        if (hasPartnerName && name) {
+          seed = Array.from(name + partnerName + birthIso).reduce(
+            (a, c) => a + c.charCodeAt(0),
+            0
+          );
+        } else if (birthIso) {
+          seed = new Date(birthIso + "T00:00:00Z").getTime() & 0xffffffff;
+        } else seed = 123456789;
+
+        const loveRng = mulberry32(seed);
+
+        let metText, whenText;
+        if (hasPartnerName) {
+          const offset = Math.floor(loveRng() * 121) - 60;
+          const when = formatMonthRangeFromOffset(offset);
+          metText = offset <= 0 ? "Already met" : "Not yet met";
+          whenText =
+            offset <= 0
+              ? `You first crossed paths around ${when.part} ${when.year}`
+              : `You are likely to meet around ${when.part} ${when.year}`;
+        } else {
+          metText = "Fated love is approaching 🌸";
+          whenText = "";
+        }
+
+        const connectionType = hasPartnerName
+          ? describeConnectionType(loveRng)
+          : "";
+        const duration = hasPartnerName ? describeDuration(loveRng) : "";
+        const lovePhrases = pick(loveRng, [
+          "A deep, steady warmth finds its way to you.",
+          "An enchanting, fated encounter weaves into your life.",
+          "Slow-burning affection blossoms into something true.",
+          "A mirror-like connection reflects your truest self.",
+          "A creative-setting meeting (art, music, travel) is likely.",
+        ]);
+        const mutual = describeMutualFeelings(loveRng, hasPartnerName);
+        const compatMsgs = hasPartnerName
+          ? [
+              "Your energies resonate deeply; twin-flame frequency detected 🔥",
+              "A soulful connection blossoms slowly 💖",
+              "Strong karmic echoes bring you together 🌸",
+              "You feel a comforting, destined bond ✨",
+            ]
+          : [
+              "A gentle, meaningful bond is forming 🌸",
+              "Your energies align quietly 💖",
+            ];
+        const compatibility = pick(loveRng, compatMsgs);
+
+        return {
+          lovePhrase: lovePhrases,
+          met: metText,
+          whenText,
+          connectionType,
+          duration,
+          compatibility,
+          mutual,
+          loveRng,
+        };
+      }
+
+      // Update reading
+      function updateReading() {
+        const now = new Date();
+        document.getElementById("time").textContent = now.toLocaleTimeString();
+        document.getElementById("tz").textContent =
+          Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById("signDisplay").textContent =
+          "Zodiac: " + zodiacFromDate(now);
+
+        const moods = [
+          "Calm",
+          "Hopeful",
+          "Busy",
+          "Reflective",
+          "Joyful",
+          "Curious",
+          "Excited",
+        ];
+        const rng = mulberry32(now.getTime() & 0xffffffff);
+        const mood = pick(rng, moods);
+        document.getElementById("feelingEmoji").textContent = pick(rng, [
+          "✨",
+          "🌸",
+          "🌞",
+          "💫",
+          "🌙",
+          "🪐",
+        ]);
+        document.getElementById("feelingTitle").textContent =
+          "Your current vibe: " + mood;
+        document.getElementById("feelingSubtitle").textContent =
+          "How the day is coloring your mood";
+        document.getElementById("moodNowText").textContent = pick(rng, [
+          "Feeling energetic",
+          "Feeling relaxed",
+          "Feeling thoughtful",
+          "Feeling playful",
+        ]);
+        document.getElementById("moodTodayText").textContent = pick(rng, [
+          "Opportunities arise",
+          "Challenges bring growth",
+          "A calm day ahead",
+          "Expect surprises",
+        ]);
+        document.getElementById("moodAdviceText").textContent = pick(rng, [
+          "Focus on what matters",
+          "Stay open to ideas",
+          "Take time to rest",
+          "Reach out to someone",
+        ]);
+        document.getElementById("thoughtTopicsList").innerHTML = pick(rng, [
+          ["Work", "Friends", "Learning"],
+          ["Family", "Health", "Projects"],
+          ["Love", "Future", "Self-care"],
+        ])
+          .map((t) => `<li>${t}</li>`)
+          .join("");
+        document.getElementById("todayForecast").textContent = pick(rng, [
+          "Expect small joys",
+          "A reflective day",
+          "Connections deepen",
+          "Energy is high",
+        ]);
+        document.getElementById("lifeGlimpse").textContent = pick(rng, [
+          "A meaningful encounter may appear soon",
+          "Growth is happening behind the scenes",
+          "Creative projects bring satisfaction",
+          "A new cycle begins",
+        ]);
+
+        const birthIso = document.getElementById("birth").value;
+        const name = document.getElementById("name").value;
+        const partnerName = document.getElementById("partnerName").value;
+        const love = generateLoveReading(birthIso, name, partnerName);
+
+        document.getElementById("loveMainLine").textContent = love.lovePhrase;
+        const meta = document.getElementById("loveMeta");
+        meta.innerHTML = "";
+        meta.innerHTML += `<div class="pill">${love.met}</div>`;
+        if (love.whenText)
+          meta.innerHTML += `<div class="pill">${love.whenText}</div>`;
+        if (love.connectionType)
+          meta.innerHTML += `<div class="pill">${love.connectionType}</div>`;
+        if (love.duration)
+          meta.innerHTML += `<div class="pill">${love.duration}</div>`;
+        meta.innerHTML += `<div class="pill">${love.compatibility}</div>`;
+        meta.innerHTML += `<div class="pill">${love.mutual.emoji} ${love.mutual.text}</div>`;
+
+        // Dynamic love heart intensity
+        const heartEl = document.querySelector(".loveHeart");
+        const closeness = love.loveRng();
+        if (closeness < 0.3) {
+          heartEl.style.color = "rgba(255,150,180,0.12)";
+          heartEl.style.transform = "scale(1) rotate(-10deg)";
+        } else if (closeness < 0.7) {
+          heartEl.style.color = "rgba(255,120,170,0.22)";
+          heartEl.style.transform = "scale(1.08) rotate(-8deg)";
+        } else {
+          heartEl.style.color = "rgba(255,90,140,0.32)";
+          heartEl.style.transform = "scale(1.15) rotate(-6deg)";
+        }
+      }
+
+      // Auto update every minute
+      setInterval(updateReading, 60000);
+      document
+        .getElementById("readBtn")
+        .addEventListener("click", updateReading);
+      updateReading();
+    </script>
+  </body>
+</html>
